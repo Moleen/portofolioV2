@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+* {
+    font-family: "League Spartan", sans-serif;
+    font-weight: 400;
+    font-style: normal
+}
+
+section,
+footer {
+    padding: 0 5rem;
+}
+
+/* HEADER */
+
+section.header {
+    height: auto;
+    padding: 5rem 5rem 2.5rem;
+    align-items: center;
+}
+
+#profimg {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    padding-left: 1rem;
+}
+
+#profimg img {
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+}
+
+#sayhello {
+    width: auto;
+    padding-right: 2rem;
+}
+
+#sayhello .text {
+    text-align: justify;
+    font-size: 1.2rem;
+    height: auto;
+}
+
+/* list socmed */
+
+.list-group-item {
+    padding: 0;
+    padding-right: 1rem;
+}
+
+.list-group-item img {
+    height: 2rem;
+    width: 2rem;
+    object-fit: fill;
+}
+
+/* END HEADER */
+
+/*  DIVIDER */
+
+/* ABOUT */
+.serve {
+    height: auto;
+}
+
+.serve .about {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.serve .about .tentangtext {
+    text-align: justify;
+}
+
+.serve .about .tentangtext p {
+    padding: 1rem;
+}
+
+
+/* END ABOUT */
+
+/* TEMPLATE */
+
+.project .item .card-link {
+    text-decoration: none;
+    color: var(--bs-dark);
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 3rem;
+}
+
+#footer2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#footer2 .list-group-item .fa-brands {
+    color: aliceblue;
+    font-size: 2rem;
+}
+
+@media only screen and (max-width: 1000px) {
+
+    .navbar,
+    section,
+    footer {
+        padding:1rem !important;
+    }
+
+    section.header {
+        justify-content: center;
+    }
+    #sayhello{
+        padding: 1rem;
+        order: 2;
+        
+    }
+    #profimg{
+        order: 1;
+        padding: 1rem;
+    }
+
+    .serve .about .tentangtext.w-75 {
+        width: 100% !important;
+    }
+
+    footer .row .col-12{
+        padding: 1rem;
+    }
+    
+
+}
+
