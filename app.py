@@ -2,15 +2,18 @@ from validate_email import validate_email
 import smtplib
 from flask import Flask, request, render_template,redirect,url_for,jsonify
 from email.mime.text import MIMEText
-from pymongo import MongoClient
 from datetime import datetime, timedelta
+from database.database import  connect_to_mysql,insert_data_db,data_search_email,delete_expired_data
 
-client = MongoClient('mongodb+srv://maulanasyakhiya:X6Tx5vkB5TZUiCMo@cluster0.zsgjrxk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', serverSelectionTimeoutMS = 500)
-db = client.portofolio
+conn = connect_to_mysql(
+    host='localhost',
+    username='root',
+    password='',
+    database='test'
+)
+
 
 app = Flask(__name__)
-
-
 
 @app.route('/')
 def index():
@@ -45,14 +48,14 @@ def sendMessage():
     message["To"] = receiver
 
     if validate_email(email_from):
-        delete_expired_data()
-        if (db.emailMessage.find_one({'email' : email_from})) :
+        delete_expired_data(connection=conn)
+        if (data_search_email(connection=conn,data=email_from,table='message')) :
             return jsonify({
                 'result':'anda telah mengirim pesan'
             })
         else:
             
-            insert_data(email_from)
+            insert_data(email_from,msgTxt)
 
             with smtplib.SMTP('smtp.gmail.com', 587) as server:
                 server.starttls()
@@ -75,18 +78,16 @@ def sendMessage():
                 'result':'email invalid'
             })
 
-def insert_data(email_from):
+def insert_data(email_from,msgTxt):
     waktu_sekarang = datetime.now()
-    data = {
-        "email": email_from,
-        "date": waktu_sekarang
-    }
-    db.emailMessage.insert_one(data)
+    data = [(
+        email_from,
+        waktu_sekarang,
+        msgTxt
+    )]
+    insert_data_db(connection=conn, table='message', data=data)
 
-def delete_expired_data():
-    waktu_sekarang = datetime.now()
-    batas_waktu = waktu_sekarang - timedelta(hours=3)
-    db.emailMessage.delete_many({'date': {'$lt': batas_waktu}})
+
 
 if __name__ == '__main__':
     app.run(debug=True)

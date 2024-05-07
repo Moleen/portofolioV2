@@ -1,6 +1,5 @@
 $(document).ready(function () {
   $(".send-message-loader").hide();
-
   $(".owl-carousel").owlCarousel({
     loop: false,
     margin: 10,

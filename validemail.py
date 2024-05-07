@@ -1,13 +1,10 @@
+from database.database import  connect_to_mysql,data_search_email,insert_data_db
 
-from pymongo import MongoClient
+conn = connect_to_mysql(
+    host='localhost',
+    username='root',
+    password='',
+    database='test'
+)
 
-client = MongoClient('mongodb+srv://maulanasyakhiya:X6Tx5vkB5TZUiCMo@cluster0.zsgjrxk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', serverSelectionTimeoutMS = 500)
-db = client.portofolio
-
-
-try:
-    if client.server_info():
-        pass
-        print("db conected")
-except:
-    print("db not connect")
+data_search_email(data='example@email.com',connection=conn,table='message')
